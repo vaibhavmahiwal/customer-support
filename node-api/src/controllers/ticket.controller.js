@@ -1,5 +1,6 @@
 const { z } = require("zod");
 const { v4: uuidv4 } = require("uuid");
+const { ticketQueue } = require("../queue/queue");
 
 const ticketSchema = z.object({
   subject: z.string().min(1, "Subject is required"),
@@ -9,17 +10,18 @@ const ticketSchema = z.object({
 
 async function createTicket(req, res, next) {
   try {
-    //if data is valid continues..
     const validated = ticketSchema.parse(req.body);
     const ticket = {
       id: uuidv4(),
       ...validated,
-      status: "received",
+      status: "queued",
       createdAt: new Date().toISOString(),
     };
-    
-    console.log("[Ticket] Received:", ticket.id, "-", ticket.subject);
-    res.status(202).json({ ticketId: ticket.id, status: "received" });
+
+    const job = await ticketQueue.add("process", ticket);
+    console.log(`[Ticket] Queued: ${ticket.id} — job ${job.id}`);
+
+    res.status(202).json({ ticketId: ticket.id, jobId: job.id, status: "queued" });
   } catch (err) {
     next(err);
   }
