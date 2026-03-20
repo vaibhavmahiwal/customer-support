@@ -1,17 +1,21 @@
 const { Worker } = require("bullmq");
 const redis = require("../config/redis");
+const aiService = require("../services/aiService");
+const routeTicket = require("../router/routeTicket")
 
 const worker = new Worker(
   "ticket-processing",
   async (job) => {
-    const ticket = job.data;
-    console.log(`[Worker] Processing ticket: ${ticket.id} — "${ticket.subject}"`);
+   const ticket = job.data;
+    console.log(`[Worker] Processing ticket: ${ticket.id}`);
 
-    // Simulate processing for now
-    await new Promise((res) => setTimeout(res, 1000));
+    const aiResult = await aiService.processTicket(ticket);
+    console.log(`[Worker] AI result:`, aiResult);
 
-    console.log(`[Worker] Done: ${ticket.id}`);
-    return { ticketId: ticket.id, status: "processed" };
+    const outcome = await routeTicket(ticket, aiResult);
+    console.log(`[Worker] Outcome: ${outcome.action}`);
+
+    return outcome;
   },
   { connection: redis, concurrency: 5 }
 );

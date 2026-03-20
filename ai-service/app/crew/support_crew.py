@@ -1,6 +1,7 @@
 import json
 import re
-from crewai import Crew, Process
+import os
+from crewai import Crew, Process, LLM
 from app.agents.classifier import make_classifier_agent
 from app.agents.reply_drafter import make_reply_drafter_agent
 from app.agents.qa_reviewer import make_qa_reviewer_agent
@@ -11,8 +12,13 @@ from app.crew.tasks import (
 )
 from app.schemas.result import TicketResult
 
+def get_gemini_llm():
+    return LLM(
+        model="groq/llama-3.3-70b-versatile",
+        api_key=os.getenv("GROQ_API_KEY"),
+    )
+
 def extract_json(text: str) -> dict:
-    """Extract JSON from agent output which may contain extra text."""
     try:
         return json.loads(text.strip())
     except Exception:
@@ -22,17 +28,19 @@ def extract_json(text: str) -> dict:
         return {}
 
 def run_support_crew(ticket) -> TicketResult:
-    # 1. Make agents
-    classifier = make_classifier_agent()
-    drafter = make_reply_drafter_agent()
-    reviewer = make_qa_reviewer_agent()
+    llm = get_gemini_llm()
 
-    # 2. Make tasks
+    # Make agents with Gemini
+    classifier = make_classifier_agent(llm=llm)
+    drafter    = make_reply_drafter_agent(llm=llm)
+    reviewer   = make_qa_reviewer_agent(llm=llm)
+
+    # Make tasks
     classify_task = make_classification_task(classifier, ticket)
-    draft_task = make_draft_reply_task(drafter, ticket, "")
-    qa_task = make_qa_review_task(reviewer, "", ticket)
+    draft_task    = make_draft_reply_task(drafter, ticket, "")
+    qa_task       = make_qa_review_task(reviewer, "", ticket)
 
-    # 3. Assemble and run crew
+    # Run crew
     crew = Crew(
         agents=[classifier, drafter, reviewer],
         tasks=[classify_task, draft_task, qa_task],
@@ -40,9 +48,9 @@ def run_support_crew(ticket) -> TicketResult:
         verbose=True,
     )
 
-    result = crew.kickoff()
+    crew.kickoff()
 
-    # 4. Parse results from each task output
+    # Parse outputs
     try:
         classify_output = extract_json(classify_task.output.raw)
         category   = classify_output.get("category", "general")
@@ -54,9 +62,9 @@ def run_support_crew(ticket) -> TicketResult:
 
     try:
         qa_output   = extract_json(qa_task.output.raw)
-        final_reply = qa_output.get("final_reply", str(result))
+        final_reply = qa_output.get("final_reply", "Thank you for contacting us.")
     except Exception:
-        final_reply = str(result)
+        final_reply = "Thank you for contacting us. We will get back to you shortly."
 
     return TicketResult(
         ticket_id=ticket.id,
