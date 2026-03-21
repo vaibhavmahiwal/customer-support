@@ -19,3 +19,5 @@ async def process_ticket(ticket: TicketInput):
 @router.get("/health")
 async def health():
     return {"status": "ok", "service": "ai-service"}
+
+

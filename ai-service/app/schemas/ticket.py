@@ -3,10 +3,10 @@ from typing import Optional
 from datetime import datetime
 
 class TicketInput(BaseModel):
-    id: str
-    subject: str
-    body: str
-    customerEmail: str
+    id: str        #required
+    subject: str   #required
+    body: str      #required
+    customerEmail: str   #required
     source: Optional[str] = "api"
     priority: Optional[str] = "medium"
     createdAt: Optional[str] = None

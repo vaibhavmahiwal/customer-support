@@ -21,6 +21,8 @@ const worker = new Worker(
 );
 
 worker.on("completed", (job) => console.log(`[Worker] Job ${job.id} completed`));
-worker.on("failed", (job, err) => console.error(`[Worker] Job ${job?.id} failed:`, err.message));
-
+worker.on("failed", (job, err) => {
+  console.error(`[Worker] Job ${job?.id} failed:`, err.message);
+  console.error(`[Worker] Full error:`, err.stack);
+});
 module.exports = worker;
