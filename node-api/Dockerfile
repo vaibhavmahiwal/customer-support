@@ -17,5 +17,6 @@ COPY . .
 # ── Stage 5: tell Docker which port your app uses ────
 EXPOSE 3000
 
-# ── Stage 6: the command to start the app ────────────
-CMD ["node", "/server.js"]
+# ── Stage 6: the command to start the app
+CMD ["node", "src/server.js"]
+

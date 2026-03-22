@@ -7,7 +7,10 @@ const app = express();
 app.use(express.json());
 
 app.get("/health", (req, res) => res.json({ status: "ok" }));
-app.use("/api/tickets", ticketRoutes);
+app.use("/api/tickets", require("./src/routes/ticket.routes"));
+app.use("/api/webhooks", require("./src/routes/webhook.routes"));
+app.use("/api/stats", require("./src/routes/stats.routes"));
+app.use("/api/agents", require("./src/routes/agent.routes"));
 app.use(errorHandler);
 
 module.exports = app;
