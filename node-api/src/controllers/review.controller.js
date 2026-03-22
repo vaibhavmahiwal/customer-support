@@ -1,5 +1,5 @@
 const Ticket = require("../models/ticket.model");
-
+const Agent = require("../models/agent.model");
 async function getReviewQueue(req, res, next) {
   try {
     const tickets = await Ticket.find({ status: "in_review" }).sort({ createdAt: -1 });
@@ -80,7 +80,16 @@ async function rejectTicket(req, res, next) {
   }
 }
 
+async function getAllTickets(req, res, next) {
+  try {
+    const tickets = await Ticket.find()
+      .sort({ createdAt: -1 })
+      .limit(50);
+    res.json({ tickets, total: tickets.length });
+  } catch (err) {
+    next(err);
+  }
+}
 
 
-
-module.exports = { getReviewQueue, approveTicket, editAndApproveTicket, rejectTicket ,getTicketById};
+module.exports = { getReviewQueue, approveTicket, editAndApproveTicket, rejectTicket ,getTicketById,getAllTickets};
