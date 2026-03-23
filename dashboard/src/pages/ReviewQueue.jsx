@@ -63,6 +63,8 @@ async function handleReject() {
   }
   setLoading(false);
 }
+
+
   return (
     <div className="p-6 flex gap-6">
       {/* Ticket list */}
