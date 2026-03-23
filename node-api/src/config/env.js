@@ -4,7 +4,7 @@ module.exports = {
   PORT: process.env.PORT || 3000,
   NODE_ENV: process.env.NODE_ENV || "development",
   API_SECRET_KEY: process.env.API_SECRET_KEY || "dev-secret",
-
+   JWT_SECRET: process.env.JWT_SECRET || "super-secret-key",
   REDIS_HOST: process.env.REDIS_HOST || "localhost",
   REDIS_PORT: process.env.REDIS_PORT || "6379",
   REDIS_PASSWORD: process.env.REDIS_PASSWORD || undefined,

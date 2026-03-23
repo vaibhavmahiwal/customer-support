@@ -5,11 +5,11 @@ const {
   getByCategory,
   getAvgConfidence,
 } = require("../controllers/stats.controller");
-const { apiKeyAuth } = require("../middleware/auth");
+const { jwtAuth } = require("../middleware/jwtAuth");
 
-router.get("/overview", apiKeyAuth, getStats);
-router.get("/volume", apiKeyAuth, getVolumeByDay);
-router.get("/categories", apiKeyAuth, getByCategory);
-router.get("/confidence", apiKeyAuth, getAvgConfidence);
+router.get("/overview", jwtAuth, getStats);
+router.get("/volume", jwtAuth, getVolumeByDay);
+router.get("/categories", jwtAuth, getByCategory);
+router.get("/confidence", jwtAuth, getAvgConfidence);
 
 module.exports = router;

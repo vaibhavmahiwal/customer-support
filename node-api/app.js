@@ -20,6 +20,7 @@ app.use("/api/webhooks", require("./src/routes/webhook.routes"));
 app.use("/api/stats", require("./src/routes/stats.routes"));
 app.use("/api/agents", require("./src/routes/agent.routes"));
 app.use("/api/portal", require("./src/routes/portal.routes"));
+app.use("/api/auth", require("./src/routes/auth.routes"));
 app.use(errorHandler);
 
 module.exports = app;
