@@ -16,28 +16,40 @@ export default function Landing() {
     <div className="min-h-screen bg-white">
 
       {/* Navbar */}
-      <nav className="border-b px-8 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg bg-purple-500 flex items-center justify-center">
-            <span className="text-white text-xs font-bold">S</span>
-          </div>
-          <span className="font-semibold text-gray-800">SupportAI</span>
-        </div>
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => navigate("/portal")}
-            className="text-sm text-gray-600 hover:text-gray-800 transition px-3 py-1.5"
-          >
-            Customer support
-          </button>
-          <button
-            onClick={() => navigate("/dashboard")}
-            className="text-sm bg-purple-500 text-white px-4 py-1.5 rounded-lg hover:bg-purple-600 transition font-medium"
-          >
-            Agent dashboard
-          </button>
-        </div>
-      </nav>
+<nav className="border-b px-8 py-4 flex items-center justify-between">
+  <div className="flex items-center gap-2">
+    <div className="w-7 h-7 rounded-lg bg-purple-500 flex items-center justify-center">
+      <span className="text-white text-xs font-bold">S</span>
+    </div>
+    <span className="font-semibold text-gray-800">SupportAI</span>
+  </div>
+  <div className="flex items-center gap-3">
+    <button
+      onClick={() => navigate("/portal")}
+      className="text-sm text-gray-600 hover:text-gray-800 transition px-3 py-1.5"
+    >
+      Customer support
+    </button>
+    <button
+      onClick={() => navigate("/login")}
+      className="text-sm text-gray-600 hover:text-gray-800 transition px-3 py-1.5"
+    >
+      Sign in
+    </button>
+    <button
+      onClick={() => navigate("/signup")}
+      className="text-sm border border-purple-400 text-purple-600 px-4 py-1.5 rounded-lg hover:bg-purple-50 transition font-medium"
+    >
+      Sign up
+    </button>
+    <button
+      onClick={() => navigate("/dashboard")}
+      className="text-sm bg-purple-500 text-white px-4 py-1.5 rounded-lg hover:bg-purple-600 transition font-medium"
+    >
+      Dashboard
+    </button>
+  </div>
+</nav>
 
       {/* Hero */}
       <section className="px-8 py-24 text-center max-w-4xl mx-auto">
@@ -52,20 +64,20 @@ export default function Landing() {
           Submit a support ticket and get an AI-generated reply in under 2 minutes.
           Our three-agent AI crew classifies, drafts, and quality-checks every response.
         </p>
-        <div className="flex items-center justify-center gap-4">
-          <button
-            onClick={() => navigate("/portal")}
-            className="bg-purple-500 text-white px-8 py-3 rounded-xl text-sm font-medium hover:bg-purple-600 transition"
-          >
-            Submit a ticket →
-          </button>
-          <button
-            onClick={() => navigate("/dashboard")}
-            className="border text-gray-600 px-8 py-3 rounded-xl text-sm font-medium hover:bg-gray-50 transition"
-          >
-            View dashboard
-          </button>
-        </div>
+       <div className="flex items-center justify-center gap-4">
+  <button
+    onClick={() => navigate("/portal")}
+    className="bg-purple-500 text-white px-8 py-3 rounded-xl text-sm font-medium hover:bg-purple-600 transition"
+  >
+    Submit a ticket →
+  </button>
+  <button
+    onClick={() => navigate("/dashboard")}
+    className="border text-gray-600 px-8 py-3 rounded-xl text-sm font-medium hover:bg-gray-50 transition"
+  >
+    View dashboard
+  </button>
+</div>
       </section>
 
       {/* Live stats bar */}

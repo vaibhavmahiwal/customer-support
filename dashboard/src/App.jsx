@@ -12,6 +12,8 @@ import Login from "./pages/Login";
 import ProtectedRoute from "./components/ProtectedRoute";
 import useAuthStore from "./store/authStore";
 import { getReviewQueue } from "./api/tickets";
+import Signup from "./pages/Signup";
+
 
 function DashboardLayout() {
   const navigate = useNavigate();
@@ -135,6 +137,7 @@ export default function App() {
       <Routes>
   <Route path="/" element={<Landing />} />
   <Route path="/login" element={<Login />} />
+  <Route path="/signup" element={<Signup />} />
   <Route path="/portal" element={<CustomerPortal />} />
   <Route path="/portal/ticket/:ticketId" element={<TicketStatus />} />
   <Route path="/portal/track" element={<TrackTicket />} />
