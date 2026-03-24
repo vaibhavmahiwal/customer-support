@@ -7,6 +7,10 @@ const {
 } = require("../controllers/stats.controller");
 const { jwtAuth } = require("../middleware/jwtAuth");
 
+// Public — no auth, used by landing page
+router.get("/public", getStats);
+
+// Protected — requires JWT token
 router.get("/overview", jwtAuth, getStats);
 router.get("/volume", jwtAuth, getVolumeByDay);
 router.get("/categories", jwtAuth, getByCategory);

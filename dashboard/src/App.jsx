@@ -133,17 +133,17 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/portal" element={<CustomerPortal />} />
-        <Route path="/portal/ticket/:ticketId" element={<TicketStatus />} />
-        <Route path="/portal/track" element={<TrackTicket />} />
-        <Route path="/dashboard/*" element={
-          <ProtectedRoute>
-            <DashboardLayout />
-          </ProtectedRoute>
-        } />
-      </Routes>
+  <Route path="/" element={<Landing />} />
+  <Route path="/login" element={<Login />} />
+  <Route path="/portal" element={<CustomerPortal />} />
+  <Route path="/portal/ticket/:ticketId" element={<TicketStatus />} />
+  <Route path="/portal/track" element={<TrackTicket />} />
+  <Route path="/dashboard/*" element={
+    <ProtectedRoute>
+      <DashboardLayout />
+    </ProtectedRoute>
+  } />
+</Routes>
     </BrowserRouter>
   );
 }

@@ -19,9 +19,12 @@ client.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem("token");
-      localStorage.removeItem("agent");
-      window.location.href = "/login";
+      const currentPath = window.location.pathname;
+      if (currentPath.startsWith("/dashboard")) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("agent");
+        window.location.href = "/login";
+      }
     }
     return Promise.reject(error);
   }

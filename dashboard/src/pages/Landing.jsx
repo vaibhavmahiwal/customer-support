@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { getOverview } from "../api/stats";
+import axios from "axios";
 
 export default function Landing() {
   const navigate = useNavigate();
   const [stats, setStats] = useState(null);
 
   useEffect(() => {
-    getOverview().then(r => setStats(r.data)).catch(() => {});
-  }, []);
+  axios.get("http://localhost:3000/api/stats/public")
+    .then(r => setStats(r.data))
+    .catch(() => {});
+}, []);
 
   return (
     <div className="min-h-screen bg-white">
