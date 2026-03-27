@@ -1,12 +1,12 @@
 import axios from "axios";
 
 const client = axios.create({
-  baseURL: "http://localhost:3000",
+  // This looks for VITE_API_URL in Vercel settings; falls back to localhost for your VS Code
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:3000",
   headers: {
     "Content-Type": "application/json",
   },
 });
-
 client.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
   if (token) {
