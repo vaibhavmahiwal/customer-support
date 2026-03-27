@@ -18,5 +18,5 @@ COPY . .
 EXPOSE 3000
 
 # ── Stage 6: the command to start the app
-CMD ["node", "src/server.js"]
+CMD ["node", "server.js"]
 

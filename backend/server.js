@@ -7,7 +7,7 @@ require("./src/queue/worker");
 
 async function start() {
   await connectDB();
-  app.listen(env.PORT, () => {
+  app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on http://localhost:${env.PORT}`);
   });
 }
