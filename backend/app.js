@@ -9,9 +9,13 @@ const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: [
+    "http://localhost:5173",                 // Local Vite Dev
+    "https://v-supportai.vercel.app/"   // YOUR ACTUAL VERCEL URL
+  ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "x-api-key", "Authorization"],
+  credentials: true, // Recommended if you're using JWT/Cookies
 }));
 
 app.get("/health", (req, res) => res.json({ status: "ok" }));
