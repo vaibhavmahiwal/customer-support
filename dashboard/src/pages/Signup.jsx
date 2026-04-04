@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import useAuthStore from "../store/authStore";
-
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 export default function Signup() {
   const navigate = useNavigate();
   const { login } = useAuthStore();
@@ -30,12 +30,12 @@ export default function Signup() {
     }
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:3000/api/auth/register", {
-        name: form.name,
-        email: form.email,
-        password: form.password,
-        role: "agent",
-      });
+      const res = await axios.post(`${BASE_URL}/api/auth/register`, {
+  name: form.name,
+  email: form.email,
+  password: form.password,
+  role: "agent",
+});
       login(res.data.token, res.data.agent);
       toast.success(`Welcome, ${res.data.agent.name}`);
       navigate("/dashboard");

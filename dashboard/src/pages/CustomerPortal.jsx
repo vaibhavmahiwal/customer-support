@@ -2,9 +2,9 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 const publicClient = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: BASE_URL,
   headers: { "Content-Type": "application/json" },
 });
 

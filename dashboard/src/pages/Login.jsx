@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
 import useAuthStore from "../store/authStore";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export default function Login() {
     }
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:3000/api/auth/login", form);
+     const res = await axios.post(`${BASE_URL}/api/auth/login`, form);
       login(res.data.token, res.data.agent);
       toast.success(`Welcome back, ${res.data.agent.name}`);
       navigate("/dashboard");
